@@ -31,8 +31,8 @@ import lombok.extern.slf4j.Slf4j;
 
 
 @RestController
-@RequestMapping("/api-operation")
-@Slf4j
+@RequestMapping
+
 public class OperationController {
 	
 	/*String uri = "http://localhost:12001/api-account/listid?id="+id;
@@ -71,7 +71,7 @@ public class OperationController {
 	public ResponseEntity<?> deposito(@RequestParam ("account") String account , @RequestParam ("amount") Double amount)
 	{
 		
-		String uri = "http://localhost:12002/api-account/naccount?account="+account;
+		String uri = "http://localhost:11100/account-rest/naccount?account="+account;
 		Double montoFinal;
 		Long id;
 		
@@ -82,7 +82,7 @@ public class OperationController {
 		montoFinal = jsonObject.getDouble("amount")+ amount;
 		id=jsonObject.getLong("idCustomer");
 		
-		String uriUpdate = "http://localhost:12002/api-account/update?id="+id;
+		String uriUpdate = "http://localhost:11100/account-rest/update?id="+id;
 		
 		
 	   /* System.out.println("Monto actual "+ jsonObject.getDouble("amount"));
@@ -124,7 +124,7 @@ public class OperationController {
 	public ResponseEntity<?> retiro(@RequestParam ("account") String account , @RequestParam ("amount") Double amount)
 	{
 		
-		String uri = "http://localhost:12002/api-account/naccount?account="+account;
+		String uri = "http://localhost:11100/account-rest/naccount?account="+account;
 		Double montoFinal;
 		Long id;
 		
@@ -137,7 +137,7 @@ public class OperationController {
 		
 		id=jsonObject.getLong("idCustomer");
 		
-		String uriUpdate = "http://localhost:12002/api-account/update?id="+id;
+		String uriUpdate = "http://localhost:11100/account-rest/update?id="+id;
 		
 		
 	   /* System.out.println("Monto actual "+ jsonObject.getDouble("amount"));

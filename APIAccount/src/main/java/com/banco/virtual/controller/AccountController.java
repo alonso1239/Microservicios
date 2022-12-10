@@ -28,7 +28,7 @@ import com.banco.virtual.service.AccountService;
 
 
 @RestController
-@RequestMapping("/api-account")
+@RequestMapping
 public class AccountController {
 
 	@Autowired

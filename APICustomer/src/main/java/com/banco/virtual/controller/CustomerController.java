@@ -27,7 +27,7 @@ import com.banco.virtual.service.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/api-customer")
+@RequestMapping
 
 public class CustomerController {
 	
