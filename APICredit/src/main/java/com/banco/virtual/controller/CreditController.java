@@ -50,11 +50,14 @@ public class CreditController {
 	public Mono<ResponseEntity<Map<String, Object>>> save(@RequestBody Credit credit) {
 		Map<String, Object> result = new HashMap<String, Object>();
 
+		//usamos la funcion labda para construir el response
 		return service.save(credit).map(p -> {
 			result.put("Credit", credit);
 
 			result.put("Mensaje", "Credito guardado correctamente");
 			result.put("status", true);
+			
+			//usamos una uri de referencia
 			return ResponseEntity.created(URI.create("/empleado/savings".concat(p.getId())))
 					.contentType(MediaType.APPLICATION_JSON).body(result);
 		}).onErrorResume(err -> {
@@ -64,6 +67,7 @@ public class CreditController {
 					.collectList().flatMap(list -> {
 						result.put("Errors", list);
 						result.put("status", HttpStatus.BAD_REQUEST);
+						//usamos la funcion labda para construir el response de error
 						return Mono.just(ResponseEntity.badRequest().body(result));
 
 					});
