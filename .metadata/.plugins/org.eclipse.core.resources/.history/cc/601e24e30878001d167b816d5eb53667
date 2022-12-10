@@ -1,0 +1,21 @@
+package com.banco.virtual.account;
+
+import java.time.LocalDate;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Entity
+@Table(name="account")
+@AllArgsConstructor
+@NoArgsConstructor
+public class Account {
+	
+	
+
+}

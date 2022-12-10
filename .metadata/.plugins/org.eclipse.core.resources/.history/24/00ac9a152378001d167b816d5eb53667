@@ -1,0 +1,6 @@
+package com.banco.virtual.repository;
+
+public interface CreditRepository extends ReactiveMongoRepository<Credit, String> {
+	
+
+}

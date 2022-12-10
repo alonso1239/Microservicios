@@ -1,0 +1,10 @@
+package com.banco.virtual.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.banco.virtual.customer.Customer;
+
+public interface CustomerRepository extends JpaRepository<Customer, Long>{
+
+	List<Customer> listByType (String type);
+}

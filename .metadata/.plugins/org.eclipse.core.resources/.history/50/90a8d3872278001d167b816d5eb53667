@@ -1,0 +1,21 @@
+package com.banco.virtual.credit;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import lombok.Data;
+
+@Data
+@Document(collection="credit")
+@AllArgsConstructor
+@NoArgsConstructor
+public class Credit {
+	@Id
+	private String id;
+	
+	private String firstname;
+	
+	private String lastname;
+	
+	private String numdocument;
+}

@@ -1,0 +1,55 @@
+package com.banco.virtual.customer;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@Data
+@Entity
+@Table(name="customer")
+@AllArgsConstructor
+@NoArgsConstructor
+public class Customer {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column(name="firstname",nullable = false)
+	private String firstName;
+	
+	@Column(name="lastname",nullable = false)
+	private String lastName;
+	
+	@Column(nullable = false)
+	private String dni;
+	
+	@Column(nullable = false)
+	private String email;
+	
+	//@Column(name="firstname")
+	private String department;
+	 
+	private String province;
+	
+	@Column(nullable = false)
+	private String address;
+	
+	private String cellphone;
+	
+	@NotEmpty
+	private String Type;
+
+    @Column(name="fecha_creacion",nullable = false)
+    private LocalDate fechaCreacion;
+}

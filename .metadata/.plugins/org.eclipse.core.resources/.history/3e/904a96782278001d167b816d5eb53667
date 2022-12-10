@@ -1,0 +1,8 @@
+package com.banco.virtual.credit;
+@Data
+@Document(collection="credit")
+@AllArgsConstructor
+@NoArgsConstructor
+public class Credit {
+
+}

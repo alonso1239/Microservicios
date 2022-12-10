@@ -1,0 +1,19 @@
+package com.banco.virtual.service;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface CustomerService {
+
+	public List<Customer> findAll();
+	
+	public Optional<Customer> findById(Long id);
+	
+	public Customer findUpdate(Customer customer);
+	
+	public Customer save(Customer customer);
+	
+	//si no va a cambiar se rompe el pricnipio cqrs
+	
+	public void delete (Long id);
+}

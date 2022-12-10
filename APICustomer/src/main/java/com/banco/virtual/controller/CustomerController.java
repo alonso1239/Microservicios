@@ -1,0 +1,177 @@
+package com.banco.virtual.controller;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import javax.validation.Valid;
+import com.banco.virtual.customer.Customer;
+
+import com.banco.virtual.service.CustomerService;
+
+import lombok.extern.slf4j.Slf4j;
+
+@RestController
+@RequestMapping("/api-customer")
+
+public class CustomerController {
+	
+	@Autowired
+	private CustomerService service;
+
+	
+	@GetMapping(path="/list")
+	public  List<Customer> listar()
+	{
+		return service.findAll();
+	}
+	
+	@GetMapping(path="/listid")
+	public Customer listarId(@RequestParam ("id") Long id)
+	{
+		return service.findById(id);
+	}
+	
+	@GetMapping(path="/listdni")
+	public Customer listarDni(@RequestParam ("dni") String dni )
+	{
+		return service.findByDni(dni);
+	}
+	
+	@GetMapping(path="/listByType")
+	public ResponseEntity<?> listByType (@RequestParam ("type") String type)
+	{
+		List<Customer> customer=null;
+		//usamos un mapa para capturar el error 
+		//map: interfaz  hashmap: implementacion
+		Map<String,Object>response= new HashMap<>();
+		try
+		{
+		  customer=service.findByType(type);
+		}
+		catch(DataAccessException e)//en caso de que hubiera un error con la bd
+		{
+			//con response colocamos el error
+			response.put("Mensaje","Error al realizar la consulta en la base de datos" );
+			response.put("Error",e.getMessage()+" :" +e.getMostSpecificCause().getMessage());
+			//retornamos el mapa
+			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	
+	
+		if(customer.size() == 0)
+		{
+			//el nombre del mensaje en response debe ser el mismo que en service del angular
+			response.put("Mensaje","El customer del tipo: "+ type + " no existe en la base de datos" );
+			//retornamos el mapa
+			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.NOT_FOUND);
+			
+		}
+		return new ResponseEntity<>(customer,HttpStatus.OK); 
+	}
+
+	
+	@PostMapping("/save")
+	public ResponseEntity<?> saveCustomer(@Valid @RequestBody Customer customer, BindingResult result)
+	{
+		Customer saveCustomer=null;
+		Map<String,Object>response= new HashMap<>();
+		if(result.hasErrors())//si encuentra error
+		{
+			//creamos un list de tipo string q contiene los mensajes de error
+			
+			List<String> errors= result.getFieldErrors() //por cada elemento de fieldError lo convertimos a string
+					.stream().map(err ->"El campo '"+ err.getField()+ "'" +err.getDefaultMessage()) //como es 1 sola linea no necesita el return
+					.collect(Collectors.toList());
+			
+					
+			response.put("Errors",errors);
+			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.BAD_REQUEST);
+		}
+		
+		try
+		{
+			saveCustomer = this.service.save(customer);
+		}
+		catch(DataAccessException e)
+		{
+			response.put("Mensaje","Error al ingresar informacion en la base de datos" );
+			response.put("Error",e.getMessage()+" :" +e.getMostSpecificCause().getMessage());
+			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		response.put("Mensaje","El customer fue registrado con exito" );
+		response.put("Customer: ",saveCustomer);
+		
+		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.CREATED);
+		
+		
+	}
+	
+	@PutMapping("/update")
+	public ResponseEntity<?> updateCustomer( @RequestBody Customer customer, @RequestParam("id") Long id)
+	{
+		Map<String, Object> response = new HashMap<>();
+		Customer updateCustomer =null;
+
+		try {
+		updateCustomer = this.service.updateById(customer, id);
+
+		}
+		catch(DataAccessException e)
+		{
+			response.put("mensaje",
+					"Error : El customer con ID:" + id + " no se puede editar, no existe en la base de datos");
+			
+			response.put("Error",e.getMessage()+" :" +e.getMostSpecificCause().getMessage());
+			// retornamos el mapa
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		
+
+			response.put("Mensaje", "El customer fue actualizado con exito");
+			response.put("Customer", updateCustomer);
+
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+			
+		
+	}
+	
+	@DeleteMapping ("/delete")
+	public ResponseEntity<?> deleteStudent(@RequestParam("id") Long id)
+	{
+		
+		//el map guarda el contenido q se envia en el reponse entity
+		Map<String,Object>response= new HashMap<>();
+		try
+		{
+			service.delete(id);
+		}
+		catch(DataAccessException e)
+		{
+			response.put("mensaje",
+					"Error : El customer con ID:" + id + " no se puede eliminar, no existe en la base de datos");
+			response.put("error",e.getMessage()+" :" +e.getMostSpecificCause().getMessage());
+			return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		response.put("mensaje","El customer fue eliminado con exito" );
+		return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
+		
+	}
+	
+}

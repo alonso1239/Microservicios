@@ -1,0 +1,25 @@
+INSERT INTO customer
+(
+address,
+cellphone,
+department,
+dni,
+email,
+fecha_creacion,
+firstname,
+lastname,
+province,
+type)
+VALUES
+(
+'Jr 28 De Julio 148
+AYACUCHO, AYACUCHO',
+985631205,
+'Lima',
+66510265,
+'customer01@gmail.com',
+'2022-12-09',
+'Luis Francisco',
+'Perez Fernandez',
+'Lima',
+'Personal');

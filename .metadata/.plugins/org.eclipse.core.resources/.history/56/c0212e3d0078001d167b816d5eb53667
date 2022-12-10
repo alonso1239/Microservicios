@@ -1,0 +1,54 @@
+package com.banco.virtual.serializer;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Component;
+
+import com.amd.test.model.Student;
+import com.amd.test.service.StudentService;
+
+@Component
+public class CustomerSerializer {
+	
+	@Autowired
+	private StudentService studentService;
+	
+	public Student serializer(Student student,Long id) {
+		
+		Student listStudentActualizado=null;
+		try
+		{
+		Student listStudentActual=studentService.findById(id);
+	
+		if(listStudentActual == null)
+		{
+			System.out.println("Error : El estudiante con ID:"+ id + " no se puede editar, no existe en la base de datos");
+		}
+		else
+		//Student serial = new Student();
+		{
+		listStudentActual.setNombre(student.getNombre());
+		listStudentActual.setEmail(student.getEmail());
+		listStudentActual.setCurso1(student.getCurso1());
+		listStudentActual.setCicloC1(student.getCicloC1());
+		listStudentActual.setComentario1(student.getComentario1());
+		
+		listStudentActual.setCurso2(student.getCurso2());
+		listStudentActual.setCicloC2(student.getCicloC2());
+		listStudentActual.setComentario2(student.getComentario2());
+		
+		listStudentActualizado=studentService.saveStudent(listStudentActual);
+	
+		}
+		}
+		catch(DataAccessException e)
+		{
+			System.out.println("Error: "+e.getMessage()+" :" +e.getMostSpecificCause().getMessage());
+		}
+		
+	
+		return listStudentActualizado;
+		
+	}
+
+}

@@ -1,0 +1,15 @@
+spring.application.name=service-customer
+server.port=12001
+
+spring.datasource.url=jdbc:mysql://localhost:3306/dbcustomer
+spring.datasource.username=root
+spring.datasource.password=vegetto22
+
+spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
+
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=none
+
+#eureka.instance.instance-id=${spring.application.name}:${eureka.instance.instance_id:${random.value}}
+
+#eureka.client.service-url.defaultZone=http://localhost:11200/eureka

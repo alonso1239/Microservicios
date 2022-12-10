@@ -1,0 +1,8 @@
+spring.application.name=service-credit
+server.port=12003
+
+spring.data.mongodb.uri=mongodb://localhost:27017/dbcredit
+
+eureka.instance.instance-id=${spring.application.name}:${eureka.instance.instance_id:${random.value}}
+
+eureka.client.service-url.defaultZone=http://localhost:11200/eureka

@@ -1,0 +1,6 @@
+package com.banco.virtual.service;
+
+@Service
+public class CustomerServiceImpl {
+
+}

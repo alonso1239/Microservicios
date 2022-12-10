@@ -1,0 +1,6 @@
+INSERT INTO account(id_customer,type,maintenance,movement,amount) VALUES(1,'Ahorro',0.0,10,50);
+INSERT INTO account(id_customer,type,maintenance,movement,amount) VALUES(2,'Corriente',10.50,999,50);
+INSERT INTO account(id_customer,type,maintenance,movement,amount) VALUES(3,'Plazo',0.0,1,50);
+INSERT INTO account(id_customer,type,maintenance,movement,amount) VALUES(4,'Ahorro',0.0,8,80);
+INSERT INTO account(id_customer,type,maintenance,movement,amount) VALUES(5,'Corriente',10.50,999,200);
+INSERT INTO account(id_customer,type,maintenance,movement,amount) VALUES(6,'Corriente',10.50,999,0.0);

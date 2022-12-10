@@ -1,0 +1,15 @@
+
+spring.application.name=service-account
+server.port=12002
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/dbaccount
+spring.datasource.username=postgres
+spring.datasource.password=1
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=create-drop
+
+#eureka.instance.instance-id=${spring.application.name}:${eureka.instance.instance_id:${random.value}}
+
+#eureka.client.service-url.defaultZone=http://localhost:11200/eureka

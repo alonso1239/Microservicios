@@ -1,0 +1,19 @@
+package com.banco.virtual.service;
+
+import java.util.List;
+
+
+public interface AccountService {
+
+	public List<Account> findAll();
+	
+	public Account findById(Long id);
+	
+	public List<Account> findByType (String type);
+	
+	public Account updateById(Account Account,Long id);
+	
+	public Account save(Account Account);
+		
+	public void delete (Long id);
+}

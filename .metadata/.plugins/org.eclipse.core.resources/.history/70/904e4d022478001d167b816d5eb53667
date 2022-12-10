@@ -1,0 +1,7 @@
+package com.banco.virtual.controller;
+
+@RestController
+@RequestMapping("/api-credit")
+public class CreditController {
+
+}

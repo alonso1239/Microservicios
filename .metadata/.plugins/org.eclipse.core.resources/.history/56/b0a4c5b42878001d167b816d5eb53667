@@ -1,0 +1,25 @@
+package com.banco.virtual;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import lombok.extern.slf4j.Slf4j;
+
+@SpringBootApplication
+@Slf4j
+public class ApiCreditApplication implements CommandLineRunner{
+	
+	@Autowired
+	private CreditRepository repository;
+	
+	@Autowired
+	private ReactiveMongoTemplate mongoTemplate;
+
+	public static void main(String[] args) {
+		SpringApplication.run(ApiCreditApplication.class, args);
+	}
+
+}

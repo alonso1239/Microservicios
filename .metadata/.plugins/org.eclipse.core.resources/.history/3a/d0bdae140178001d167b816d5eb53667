@@ -1,0 +1,56 @@
+package com.banco.virtual.serializer;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Component;
+
+import com.banco.virtual.customer.Customer;
+import com.banco.virtual.service.CustomerService;
+
+
+public class CustomerSerializer {
+
+	@Autowired
+	private CustomerService service;
+	
+	public CustomerSerializer serializer(Customer customer,Long id) {
+		
+		Customer listcustomerActualizado=null;
+		try
+		{
+		Customer listcustomerActual=service.findById(id);
+	
+		if(listcustomerActual == null)
+		{
+			System.out.println("Error : El customer con ID:"+ id + " no se puede editar, no existe en la base de datos");
+		}
+		else
+		//customer serial = new customer();
+		{
+		listcustomerActual.setFirstName(customer.getFirstName());
+		listcustomerActual.setLastName(customer.getLastName());
+		listcustomerActual.setDni(customer.getDni());
+		listcustomerActual.setEmail(customer.getEmail());
+		listcustomerActual.setDepartment(customer.getDepartment());
+		listcustomerActual.setProvince(customer.getProvince());
+		listcustomerActual.setAddress(customer.getAddress());
+		
+		listcustomerActual.setCurso2(customer.getCurso2());
+		listcustomerActual.setCicloC2(customer.getCicloC2());
+		listcustomerActual.setComentario2(customer.getComentario2());
+		
+		listcustomerActualizado=customerService.savecustomer(listcustomerActual);
+	
+		}
+		}
+		catch(DataAccessException e)
+		{
+			System.out.println("Error: "+e.getMessage()+" :" +e.getMostSpecificCause().getMessage());
+		}
+		
+	
+		return listcustomerActualizado;
+		
+	}
+
+}

@@ -1,0 +1,8 @@
+spring.application.name=service-config
+server.port=12100
+spring.cloud.config.server.git.uri=https://github.com/alonso1239/selfconfig202211
+spring.cloud.config.server.git.clone-on-start=true
+
+
+spring.cloud.config.server.git.username=alonso1239
+spring.cloud.config.server.git.password=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

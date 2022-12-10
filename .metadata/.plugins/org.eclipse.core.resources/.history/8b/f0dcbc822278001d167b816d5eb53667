@@ -1,0 +1,13 @@
+package com.banco.virtual.credit;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import lombok.Data;
+
+@Data
+@Document(collection="credit")
+@AllArgsConstructor
+@NoArgsConstructor
+public class Credit {
+
+}

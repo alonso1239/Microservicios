@@ -1,0 +1,11 @@
+package com.banco.virtual.credit;
+
+import lombok.Data;
+
+@Data
+@Document(collection="credit")
+@AllArgsConstructor
+@NoArgsConstructor
+public class Credit {
+
+}

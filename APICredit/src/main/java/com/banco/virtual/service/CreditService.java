@@ -1,0 +1,18 @@
+package com.banco.virtual.service;
+import com.banco.virtual.credit.Credit;
+
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+public interface CreditService {
+	
+	public Flux<Credit> findAll();
+	
+	//un elemento es manejado por mono
+	
+	public Flux<Credit> findByType(String type);
+	
+	public Mono<Credit> save(Credit Credit);
+	
+	public Mono<Void> delete(Credit Credit);
+
+}
